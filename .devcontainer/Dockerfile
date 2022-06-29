@@ -10,9 +10,11 @@ RUN apt-get update && \
     zsh \
     vim \
     build-essential \
-    openssl
+    pkg-config \
+    libssl-dev
 
 ENV PATH="/root/.cargo/bin:${PATH}"
-RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --default-toolchain none -y
-RUN rustup toolchain install nightly --allow-downgrade --profile minimal --component clippy
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --default-toolchain none -y && \
+    rustup toolchain install nightly --allow-downgrade --profile minimal --component clippy && \
+    cargo install cargo-edit
 
